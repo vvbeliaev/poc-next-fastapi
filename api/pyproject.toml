@@ -6,12 +6,16 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "alembic>=1.18.3",
+    "asyncpg>=0.30.0",
     "fal>=0.9.1",
     "fastapi[standard]>=0.128.0",
     "google-genai>=1.60.0",
     "openai>=2.16.0",
     "psycopg[binary]>=3.3.2",
     "pydantic>=2.12.5",
-    "sqlalchemy>=2.0.46",
+    "pydantic-settings>=2.0.0",
+    "python-multipart>=0.0.9",
+    "email-validator>=2.0.0",
+    "sqlalchemy[asyncio]>=2.0.46",
     "uvicorn>=0.40.0",
 ]
