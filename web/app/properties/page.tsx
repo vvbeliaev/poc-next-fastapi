@@ -1,5 +1,5 @@
 import { PropertiesCatalog } from "@/widgets/properties-catalog";
-import { getProperties } from "@/shared/lib/actions";
+import { getProperties } from "@/entities/property/api/server";
 
 export const dynamic = "force-dynamic";
 

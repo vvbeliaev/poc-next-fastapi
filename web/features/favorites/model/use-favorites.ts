@@ -2,11 +2,12 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { favoritesApi } from "../api";
+import { getFavorites } from "@/entities/user/api/server";
 
 export function useFavorites(userId: number | null) {
   return useQuery({
     queryKey: ["favorites", userId],
-    queryFn: () => (userId ? favoritesApi.getAll(userId) : []),
+    queryFn: () => (userId ? getFavorites(userId) : []),
     enabled: !!userId,
   });
 }

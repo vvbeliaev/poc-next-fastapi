@@ -36,24 +36,6 @@ async def create_user(
     return await service.create(user_data)
 
 
-@router.get("/{user_id}", response_model=UserResponse)
-async def get_user(user_id: int, service: UserService = Depends(get_user_service)):
-    """Get a user by ID."""
-    user = await service.get_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
-
-
-@router.get("/{user_id}/favorites", response_model=list[int])
-async def get_favorites(user_id: int, service: UserService = Depends(get_user_service)):
-    """Get user's favorite property IDs."""
-    user = await service.get_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return await service.get_favorites(user_id)
-
-
 @router.put("/{user_id}/favorites", response_model=UserResponse)
 async def update_favorites(
     user_id: int,

@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { userApi, type User } from "@/entities/user";
+import { getUser } from "@/entities/user/api/server";
 
 const DEMO_USER_KEY = "demo_user_id";
 
@@ -22,7 +23,7 @@ export function useUser() {
       const userId = getUserId();
       if (!userId) return null;
       try {
-        return await userApi.getById(userId);
+        return (await getUser(userId)) as unknown as User;
       } catch {
         localStorage.removeItem(DEMO_USER_KEY);
         return null;
