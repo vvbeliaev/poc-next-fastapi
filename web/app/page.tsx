@@ -3,6 +3,8 @@ import { PropertiesCatalog } from "@/widgets/properties-catalog";
 import { ImageAnalyzer } from "@/widgets/image-analyzer";
 import { getProperties } from "@/shared/lib/actions";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const initialProperties = await getProperties();
 
