@@ -1,7 +1,7 @@
-import { Header } from "@/components/header";
-import { PropertiesCatalog } from "@/components/properties-catalog";
-import { ImageAnalyzer } from "@/components/image-analyzer";
-import { getProperties } from "@/lib/actions";
+import { Header } from "@/widgets/header";
+import { PropertiesCatalog } from "@/widgets/properties-catalog";
+import { ImageAnalyzer } from "@/widgets/image-analyzer";
+import { getProperties } from "@/shared/lib/actions";
 
 export default async function Home() {
   const initialProperties = await getProperties();

@@ -4,9 +4,12 @@ from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 
-from app.config import settings
-from app.database import Base
-from app.models import Property, User  # noqa: F401 - import models to register them
+from app.shared.config import settings
+from app.shared.database import Base
+from app.property.domain.model import (
+    Property,
+)  # noqa: F401 - import models to register them
+from app.user.domain.model import User  # noqa: F401
 
 # this is the Alembic Config object
 config = context.config
@@ -45,9 +48,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

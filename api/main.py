@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import properties, users, analyze
+from app.property import router as properties_router
+from app.user import router as users_router
+from app.analyze import router as analyze_router
 
 app = FastAPI(
     title="Properties API",
@@ -19,9 +21,9 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(properties.router, prefix="/api/properties", tags=["properties"])
-app.include_router(users.router, prefix="/api/users", tags=["users"])
-app.include_router(analyze.router, prefix="/api/analyze", tags=["analyze"])
+app.include_router(properties_router, prefix="/api/properties", tags=["properties"])
+app.include_router(users_router, prefix="/api/users", tags=["users"])
+app.include_router(analyze_router, prefix="/api/analyze", tags=["analyze"])
 
 
 @app.get("/health")
