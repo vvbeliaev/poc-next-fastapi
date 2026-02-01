@@ -39,6 +39,7 @@ services:
     environment:
       DATABASE_URL: ${API_DATABASE_URL}
     command: uv run alembic upgrade head
+    restart: no
     depends_on:
       db:
         condition: service_healthy
