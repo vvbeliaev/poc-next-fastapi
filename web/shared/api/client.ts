@@ -21,10 +21,14 @@ class ApiClient {
   }
 
   async post<T>(endpoint: string, data?: unknown): Promise<T> {
+    const hasBody = data !== undefined;
+    const isFormData = data instanceof FormData;
+
     const res = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "POST",
-      headers: data instanceof FormData ? {} : { "Content-Type": "application/json" },
-      body: data instanceof FormData ? data : JSON.stringify(data),
+      headers:
+        hasBody && !isFormData ? { "Content-Type": "application/json" } : {},
+      body: hasBody ? (isFormData ? data : JSON.stringify(data)) : undefined,
     });
     if (!res.ok) throw new Error(`Failed to post to ${endpoint}`);
     return res.json();
