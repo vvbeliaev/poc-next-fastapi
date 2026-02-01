@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
+  Github,
   Home,
   Search,
   Heart,
@@ -77,6 +78,18 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" className="h-9 w-9" asChild>
+            <a
+              href="https://github.com/vvbeliaev/poc-next-fastapi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <Github className="h-5 w-5" />
+              <span className="sr-only">GitHub</span>
+            </a>
+          </Button>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="h-9 w-9">
