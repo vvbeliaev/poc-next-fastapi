@@ -16,11 +16,7 @@ interface PropertiesCatalogProps {
 
 export function PropertiesCatalog({ initialData }: PropertiesCatalogProps) {
   const { user } = useUser();
-  const {
-    data: properties,
-    isLoading,
-    error,
-  } = useProperties(undefined, initialData);
+  const { data: properties, isLoading, error } = useProperties(initialData);
   const { data: favorites = [] } = useFavorites(user?.id ?? null);
   const addFavorite = useAddFavorite();
   const removeFavorite = useRemoveFavorite();

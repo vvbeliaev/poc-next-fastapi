@@ -1,3 +1,4 @@
 export { type Property } from "./model";
-export { propertyApi, getProperties, getProperty } from "./api";
+export { propertyApi } from "./api";
 export { PropertyCard } from "./ui/property-card";
+export { getProperties } from "./api/server";
