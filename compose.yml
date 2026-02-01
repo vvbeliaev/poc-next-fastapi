@@ -20,7 +20,7 @@ services:
       context: ./api
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: ${API_DATABASE_URL}
     depends_on:
       db:
         condition: service_healthy
@@ -30,7 +30,7 @@ services:
       context: ./web
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: ${WEB_DATABASE_URL}
     depends_on:
       - api
 
@@ -39,7 +39,7 @@ services:
       context: ./api
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: ${API_DATABASE_URL}
     command: uv run alembic upgrade head
     depends_on:
       db:
