@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Bed, Bath, Ruler } from "lucide-react";
+import { Bed, Bath, Ruler, MapPin } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, Badge } from "@/shared/ui";
 import type { Property } from "../model";
+import { cn } from "@/shared/lib/utils";
 
 interface PropertyCardProps {
   property: Property;
@@ -20,14 +21,14 @@ export function PropertyCard({ property, actions }: PropertyCardProps) {
   };
 
   return (
-    <Card className="overflow-hidden group">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <Card className="overflow-hidden group border transition-all duration-300 hover:shadow-lg hover:border-primary/20 bg-card">
+      <div className="relative aspect-16/10 overflow-hidden">
         {property.image_url ? (
           <Image
             src={property.image_url}
             alt={property.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -35,38 +36,66 @@ export function PropertyCard({ property, actions }: PropertyCardProps) {
             <span className="text-muted-foreground">No image</span>
           </div>
         )}
-        <Badge className="absolute top-3 left-3">{property.city}</Badge>
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        <Badge
+          variant="secondary"
+          className="absolute top-3 left-3 bg-background/90 backdrop-blur-sm text-foreground"
+        >
+          {property.city}
+        </Badge>
+
         {actions && (
-          <div className="absolute top-2 right-2">{actions}</div>
+          <div className="absolute top-3 right-3 z-10">{actions}</div>
         )}
       </div>
 
-      <CardHeader className="pb-2">
-        <h3 className="font-semibold text-lg line-clamp-1">{property.title}</h3>
-        <p className="text-2xl font-bold text-primary">
+      <CardHeader className="pb-2 space-y-1">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="font-bold text-lg line-clamp-1 group-hover:text-primary transition-colors">
+            {property.title}
+          </h3>
+        </div>
+        <p className="text-2xl font-black text-primary tracking-tight">
           {formatPrice(property.price)}
         </p>
       </CardHeader>
 
-      <CardContent className="pb-2">
-        <p className="text-sm text-muted-foreground line-clamp-2">
-          {property.address}
-        </p>
+      <CardContent className="pb-4">
+        <div className="flex items-center gap-1 text-xs text-muted-foreground mb-2">
+          <MapPin className="h-3 w-3" />
+          <span className="line-clamp-1">{property.address}</span>
+        </div>
       </CardContent>
 
-      <CardFooter className="flex gap-4 text-sm text-muted-foreground">
-        <span className="flex items-center gap-1">
-          <Bed className="h-4 w-4" />
-          {property.bedrooms}
-        </span>
-        <span className="flex items-center gap-1">
-          <Bath className="h-4 w-4" />
-          {property.bathrooms}
-        </span>
-        <span className="flex items-center gap-1">
-          <Ruler className="h-4 w-4" />
-          {property.area_sqm} m²
-        </span>
+      <CardFooter className="grid grid-cols-3 border-t border-muted/50 py-3 bg-muted/20">
+        <div className="flex flex-col items-center gap-0.5 border-r border-muted/50">
+          <span className="flex items-center gap-1.5 text-foreground font-semibold">
+            <Bed className="h-3.5 w-3.5 text-primary" />
+            {property.bedrooms}
+          </span>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
+            Beds
+          </span>
+        </div>
+        <div className="flex flex-col items-center gap-0.5 border-r border-muted/50">
+          <span className="flex items-center gap-1.5 text-foreground font-semibold">
+            <Bath className="h-3.5 w-3.5 text-primary" />
+            {property.bathrooms}
+          </span>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
+            Baths
+          </span>
+        </div>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="flex items-center gap-1.5 text-foreground font-semibold">
+            <Ruler className="h-3.5 w-3.5 text-primary" />
+            {property.area_sqm}
+          </span>
+          <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
+            Sq M
+          </span>
+        </div>
       </CardFooter>
     </Card>
   );

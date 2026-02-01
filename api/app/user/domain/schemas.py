@@ -15,6 +15,10 @@ class UserCreate(UserBase):
     pass
 
 
+class UserLogin(BaseModel):
+    email: EmailStr
+
+
 class UserResponse(UserBase):
     id: int
     favorites: FavoritesData
