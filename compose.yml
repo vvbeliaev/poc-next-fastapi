@@ -29,9 +29,18 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     environment:
       DATABASE_URL: ${DATABASE_URL}
     depends_on:
       - api
+
+  migrate:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    command: uv run alembic upgrade head
+    depends_on:
+      db:
+        condition: service_healthy
